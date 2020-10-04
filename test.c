@@ -26,14 +26,17 @@
  * Test program for simple_linear_regression.h
  *
  * Compile and run using e.g.
- * clang -Wall -Weverything -Werror test.c && ./a.out
+ * clang -Wall -Weverything -Wpedantic -Werror test.c && ./a.out
+ * gcc -Wall -Wpedantic -Werror test.c && ./a.out
  */
 
+#define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION
 #include "simple_linear_regression.h"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <math.h>
 
 #define DATA_POINTS (20)
 #define TRUE_SLOPE (1.0)
@@ -43,16 +46,27 @@ static double random_n1_1() {
     return 2.0 * (double)(rand()) / (double)(RAND_MAX) - 1.0;
 }
 
+static int fd_equals(double d, float f) {
+    if (fabs(d - (double)(f)) < 0.0001) {
+        return 1;
+    }
+    return 0;
+}
+
 int main() {
+    int i = 0;
+    int res = -1;
     double x[DATA_POINTS] = { 0 };
     double y[DATA_POINTS] = { 0 };
     double i_real = 0.0;
-    int i = 0;
-    int res = -1;
-
     double slope = 0.0;
     double intercept = 0.0;
     double r2 = 0.0;
+    float xf[DATA_POINTS] = { 0 };
+    float yf[DATA_POINTS] = { 0 };
+    float slopef = 0.0f;
+    float interceptf = 0.0f;
+    float r2f = 0.0f;
 
     srand((unsigned int)(time(NULL)));
 
@@ -62,6 +76,8 @@ int main() {
         i_real = (double)i;
         x[i] = TRUE_SLOPE * i_real + random_n1_1();
         y[i] = i_real + RAND_SCALE * random_n1_1();
+        xf[i] = (float)(x[i]);
+        yf[i] = (float)(y[i]);
 
         printf("%f, %f\n", x[i], y[i]);
     }
@@ -84,6 +100,21 @@ int main() {
     printf("\nslope: %f\n", slope);
     printf("intercept: %f\n", intercept);
     printf("r2: %f\n", r2);
-    
+
+    /* Check that the float version gives the same result */
+    res = simple_linear_regressionf(xf, yf, DATA_POINTS, &slopef, &interceptf, &r2f);
+    if (res != 0) {
+        printf("\nERROR: simple_linear_regressionf mismatch (%d != 0)\n", res);
+    }
+    if (!fd_equals(slope, slopef)) {
+        printf("\nERROR: simple_linear_regressionf mismatch (slope: %f != %f)\n", slope, (double)(slopef));
+    }
+    if (!fd_equals(intercept, interceptf)) {
+        printf("\nERROR: simple_linear_regressionf mismatch (intercept: %f != %f)\n", intercept, (double)(interceptf));
+    }
+    if (!fd_equals(r2, r2f)) {
+        printf("\nERROR: simple_linear_regressionf mismatch (r2: %f != %f)\n", r2, (double)(r2f));
+    }
+
     return 0;
 }
