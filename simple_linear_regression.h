@@ -48,6 +48,9 @@ int simple_linear_regression(double * x, double * y, int n, double * slope_out, 
     double sum_yy = 0.0;
     double n_real = (double)(n);
     int i = 0;
+    double tmp1 = 0.0;
+    double tmp2 = 0.0;
+    double tmp3 = 0.0;
     double slope = 0.0;
     double intercept = 0.0;
     double denominator = 0.0;
@@ -79,43 +82,15 @@ int simple_linear_regression(double * x, double * y, int n, double * slope_out, 
         *intercept_out = intercept;
     }
 
-
-    // https://www.bmc.com/blogs/mean-squared-error-r2-and-variance-in-regression-analysis/
-    double average_y = sum_y / n_real;
-    double sum_squared_error_from_average = 0.0;
-    double sum_squared_error_with_model = 0.0;
-
-    for (i = 0; i < n; ++i) {
-        double diff_from_average = y[i] - average_y;
-        sum_squared_error_from_average += diff_from_average * diff_from_average;
-
-        double model_prediction = intercept + x[i] * slope;
-        double diff_with_model = y[i] - model_prediction;
-        sum_squared_error_with_model += diff_with_model * diff_with_model;
-    }
-
-    double r2_explicit = 
-        (sum_squared_error_from_average - sum_squared_error_with_model) / 
-        sum_squared_error_from_average;
-    printf("r2_explicit: %f\n", r2_explicit);
-
-
-    double term1 = ((n * sum_xy) - (sum_x * sum_y));
-    double term2 = ((n * sum_xx) - (sum_x * sum_x));
-    double term3 = ((n * sum_yy) - (sum_y * sum_y));
-    double term23 = (term2 * term3);
-    double r2_stackoverflow = (term1 * term1) / term23;
-    printf("r2_stackoverflow: %f\n", r2_stackoverflow);
-
-    // https://en.wikipedia.org/wiki/Simple_linear_regression
-    double r2_wikipedia = 
-        (1.0 / (n_real * (n_real - 2.0))) * 
-        (n_real * sum_yy - sum_y * sum_y - slope * slope * (n_real * sum_xx - sum_x * sum_x));
-    printf("r2_wikipedia: %f\n", r2_wikipedia);
-
-
     if (r2_out != NULL) {
-        *r2_out = r2_stackoverflow;
+        tmp1 = ((n * sum_xy) - (sum_x * sum_y));
+        tmp2 = ((n * sum_xx) - (sum_x * sum_x));
+        tmp3 = ((n * sum_yy) - (sum_y * sum_y));
+        denominator = (tmp2 * tmp3);
+        if (denominator == 0.0) {
+            return SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC;
+        }
+        *r2_out = (tmp1 * tmp1) / denominator;
     }
 
     return 0;

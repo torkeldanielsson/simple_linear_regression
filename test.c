@@ -52,10 +52,11 @@ int main() {
 
     double slope = 0.0;
     double intercept = 0.0;
+    double r2 = 0.0;
 
     srand((unsigned int)(time(NULL)));
 
-    printf("Test of simple_linear_regression.h, generating random test data:\n");
+    printf("Test of simple_linear_regression.h, using random test data:\n\n");
 
     for (i = 0; i < DATA_POINTS; ++i) {
         i_real = (double)i;
@@ -65,7 +66,7 @@ int main() {
         printf("%f, %f\n", x[i], y[i]);
     }
 
-    res = simple_linear_regression(x, y, DATA_POINTS, &slope, &intercept, NULL);
+    res = simple_linear_regression(x, y, DATA_POINTS, &slope, &intercept, &r2);
 
     if (res == SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE) {
         printf("SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE\n");
@@ -82,6 +83,7 @@ int main() {
 
     printf("\nslope: %f\n", slope);
     printf("intercept: %f\n", intercept);
+    printf("r2: %f\n", r2);
     
     return 0;
 }
