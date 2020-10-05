@@ -39,8 +39,8 @@ extern "C" {
  * _out parameters may be NULL
  * returns: 0 on success or < 0 on error, see below for error codes
  */
-int simple_linear_regression(double * x, double * y, int n, double * slope_out, double * intercept_out, double * r2_out);
-int simple_linear_regressionf(float * x, float * y, int n, float * slope_out, float * intercept_out, float * r2_out);
+int simple_linear_regression(const double * x, const double * y, const int n, double * slope_out, double * intercept_out, double * r2_out);
+int simple_linear_regressionf(const float * x, const float * y, const int n, float * slope_out, float * intercept_out, float * r2_out);
 
 /* Error codes */
 #define SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE -2
@@ -58,7 +58,7 @@ int simple_linear_regressionf(float * x, float * y, int n, float * slope_out, fl
  */
 #ifdef SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION
 
-int simple_linear_regression(double * x, double * y, int n, double * slope_out, double * intercept_out, double * r2_out) {
+int simple_linear_regression(const double * x, const double * y, const int n, double * slope_out, double * intercept_out, double * r2_out) {
     double sum_x = 0.0;
     double sum_xx = 0.0;
     double sum_xy = 0.0;
@@ -114,7 +114,7 @@ int simple_linear_regression(double * x, double * y, int n, double * slope_out, 
     return 0;
 }
 
-int simple_linear_regressionf(float * x, float * y, int n, float * slope_out, float * intercept_out, float * r2_out) {
+int simple_linear_regressionf(const float * x, const float * y, const int n, float * slope_out, float * intercept_out, float * r2_out) {
     float sum_x = 0.0f;
     float sum_xx = 0.0f;
     float sum_xy = 0.0f;
