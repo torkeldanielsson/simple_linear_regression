@@ -39,8 +39,8 @@
 #include <time.h>
 
 #define DATA_POINTS (20)
-#define TRUE_SLOPE (1.0)
-#define RAND_SCALE (10.0)
+#define TRUE_SLOPE  (1.0)
+#define RAND_SCALE  (10.0)
 
 static double random_n1_1() {
     return 2.0 * (double)(rand()) / (double)(RAND_MAX) - 1.0;

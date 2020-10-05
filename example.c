@@ -45,7 +45,7 @@ int main() {
     double r2 = 0.0;
     int res = 0;
 
-    res = simple_linear_regression(x, y, sizeof(x)/sizeof(x[0]), &slope, &intercept, &r2);
+    res = simple_linear_regression(x, y, sizeof(x) / sizeof(x[0]), &slope, &intercept, &r2);
     if (res < 0) {
         printf("Error: %s\n", simple_linear_regression_error_string(res));
         return res;
