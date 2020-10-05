@@ -67,14 +67,11 @@ int simple_linear_regression(const double * x, const double * y, const int n, do
     double sum_yy = 0.0;
     double n_real = (double)(n);
     int i = 0;
-    double tmp1 = 0.0;
-    double tmp2 = 0.0;
-    double tmp3 = 0.0;
     double slope = 0.0;
     double intercept = 0.0;
     double denominator = 0.0;
 
-    if (x == NULL || y == NULL || n <= 3) {
+    if (x == NULL || y == NULL || n < 2) {
         return SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE;
     }
 
@@ -102,14 +99,11 @@ int simple_linear_regression(const double * x, const double * y, const int n, do
     }
 
     if (r2_out != NULL) {
-        tmp1 = ((n_real * sum_xy) - (sum_x * sum_y));
-        tmp2 = ((n_real * sum_xx) - (sum_x * sum_x));
-        tmp3 = ((n_real * sum_yy) - (sum_y * sum_y));
-        denominator = (tmp2 * tmp3);
+        denominator = ((n_real * sum_xx) - (sum_x * sum_x)) * ((n_real * sum_yy) - (sum_y * sum_y));
         if (denominator == 0.0) {
             return SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC;
         }
-        *r2_out = (tmp1 * tmp1) / denominator;
+        *r2_out = ((n_real * sum_xy) - (sum_x * sum_y)) * ((n_real * sum_xy) - (sum_x * sum_y)) / denominator;
     }
 
     return 0;
@@ -123,14 +117,11 @@ int simple_linear_regressionf(const float * x, const float * y, const int n, flo
     float sum_yy = 0.0f;
     float n_real = (float)(n);
     int i = 0;
-    float tmp1 = 0.0f;
-    float tmp2 = 0.0f;
-    float tmp3 = 0.0f;
     float slope = 0.0f;
     float intercept = 0.0f;
     float denominator = 0.0f;
 
-    if (x == NULL || y == NULL || n <= 3) {
+    if (x == NULL || y == NULL || n < 2) {
         return SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE;
     }
 
@@ -158,14 +149,11 @@ int simple_linear_regressionf(const float * x, const float * y, const int n, flo
     }
 
     if (r2_out != NULL) {
-        tmp1 = ((n_real * sum_xy) - (sum_x * sum_y));
-        tmp2 = ((n_real * sum_xx) - (sum_x * sum_x));
-        tmp3 = ((n_real * sum_yy) - (sum_y * sum_y));
-        denominator = (tmp2 * tmp3);
+        denominator = ((n_real * sum_xx) - (sum_x * sum_x)) * ((n_real * sum_yy) - (sum_y * sum_y));
         if (denominator == 0.0f) {
             return SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC;
         }
-        *r2_out = (tmp1 * tmp1) / denominator;
+        *r2_out = ((n_real * sum_xy) - (sum_x * sum_y)) * ((n_real * sum_xy) - (sum_x * sum_y)) / denominator;
     }
 
     return 0;
