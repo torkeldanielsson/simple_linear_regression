@@ -68,7 +68,6 @@ int simple_linear_regression(const double * x, const double * y, const int n, do
     double n_real = (double)(n);
     int i = 0;
     double slope = 0.0;
-    double intercept = 0.0;
     double denominator = 0.0;
 
     if (x == NULL || y == NULL || n < 2) {
@@ -93,9 +92,8 @@ int simple_linear_regression(const double * x, const double * y, const int n, do
         *slope_out = slope;
     }
 
-    intercept = (sum_y  - slope * sum_x) / n_real;
     if (intercept_out != NULL) {
-        *intercept_out = intercept;
+        *intercept_out = (sum_y  - slope * sum_x) / n_real;
     }
 
     if (r2_out != NULL) {
@@ -118,7 +116,6 @@ int simple_linear_regressionf(const float * x, const float * y, const int n, flo
     float n_real = (float)(n);
     int i = 0;
     float slope = 0.0f;
-    float intercept = 0.0f;
     float denominator = 0.0f;
 
     if (x == NULL || y == NULL || n < 2) {
@@ -143,9 +140,8 @@ int simple_linear_regressionf(const float * x, const float * y, const int n, flo
         *slope_out = slope;
     }
 
-    intercept = (sum_y  - slope * sum_x) / n_real;
     if (intercept_out != NULL) {
-        *intercept_out = intercept;
+        *intercept_out = (sum_y  - slope * sum_x) / n_real;
     }
 
     if (r2_out != NULL) {
