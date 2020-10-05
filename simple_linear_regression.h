@@ -35,7 +35,7 @@ extern "C" {
  * Simple linear regression, as described on wikipedia:
  * https://en.wikipedia.org/wiki/Simple_linear_regression
  * 
- * x and y must point to data of size n.
+ * x and y must point to contiguous arrays with n elements
  * _out parameters may be NULL
  * returns: 0 on success or < 0 on error, see below for error codes
  */
@@ -50,14 +50,12 @@ int simple_linear_regressionf(const float * x, const float * y, const int n, flo
 const char * simple_linear_regression_error_string(int error);
 
 /* 
- * To include implementation code define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION 
- * before including simple_linear_regression.h.
+ * To include implementation code define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION before including simple_linear_regression.h.
  * 
  * E.g. create a file called simple_linear_regression.c with the following contents:
  * #define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION 
  * #include "simple_linear_regression.h"
- * (This is useful in larger codebases, for smaller codebases do like in the test
- * and define before include in the .c file)
+ * (This is useful in larger codebases, for smaller codebases do like in the example and define before include in a .c/.cpp file)
  */
 #ifdef SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION
 
