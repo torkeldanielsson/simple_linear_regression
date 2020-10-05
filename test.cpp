@@ -27,6 +27,7 @@
 // Compile and run using e.g.
 // clang++ -Wall -Weverything -Wpedantic -Werror test.cpp && ./a.out
 // g++ -Wall -Wpedantic -Werror test.cpp && ./a.out
+// cl.exe /EHsc test.cpp && test.exe
 
 // NULL and old-style-cast are used for compatibility with C and c++98
 #if defined(__clang__)

@@ -28,6 +28,7 @@
  * Compile and run using e.g.
  * clang -Wall -Weverything -Wpedantic -Werror test.c && ./a.out
  * gcc -Wall -Wpedantic -Werror test.c && ./a.out
+ * cl.exe test.c && test.exe
  */
 
 #define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION
@@ -70,7 +71,7 @@ int main() {
 
     srand((unsigned int)(time(NULL)));
 
-    printf("Test (C) of simple_linear_regression.h, using random test data:\n\n");
+    printf("Test of simple_linear_regression.h, using random test data:\n\n");
 
     for (i = 0; i < DATA_POINTS; ++i) {
         i_real = (double)i;
