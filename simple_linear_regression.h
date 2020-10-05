@@ -27,6 +27,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
  * Simple linear regression, as described on wikipedia:
  * https://en.wikipedia.org/wiki/Simple_linear_regression
@@ -167,5 +171,9 @@ int simple_linear_regressionf(float * x, float * y, int n, float * slope_out, fl
 }
 
 #endif /* SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION */
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SIMPLE_LINEAR_REGRESSION_H */

@@ -23,7 +23,7 @@
  */
 
 /*
- * Test program for simple_linear_regression.h
+ * C test program for simple_linear_regression.h
  *
  * Compile and run using e.g.
  * clang -Wall -Weverything -Wpedantic -Werror test.c && ./a.out
@@ -33,10 +33,10 @@
 #define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION
 #include "simple_linear_regression.h"
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <math.h>
 
 #define DATA_POINTS (20)
 #define TRUE_SLOPE (1.0)
@@ -70,12 +70,12 @@ int main() {
 
     srand((unsigned int)(time(NULL)));
 
-    printf("Test of simple_linear_regression.h, using random test data:\n\n");
+    printf("Test (C) of simple_linear_regression.h, using random test data:\n\n");
 
     for (i = 0; i < DATA_POINTS; ++i) {
         i_real = (double)i;
-        x[i] = TRUE_SLOPE * i_real + random_n1_1();
-        y[i] = i_real + RAND_SCALE * random_n1_1();
+        x[i] = i_real + random_n1_1();
+        y[i] = TRUE_SLOPE * i_real + RAND_SCALE * random_n1_1();
         xf[i] = (float)(x[i]);
         yf[i] = (float)(y[i]);
 
