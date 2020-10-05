@@ -84,17 +84,8 @@ int main() {
     double r2 = 0.0;
 
     int res = simple_linear_regression(x.data(), y.data(), DataPoints, &slope, &intercept, &r2);
-
-    if (res == SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE) {
-        std::cerr << "SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE" << std::endl;
-        return res;
-    }
-    if (res == SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC) {
-        std::cerr << "SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC" << std::endl;
-        return res;
-    }
     if (res < 0) {
-        std::cerr << "Unknown error" << std::endl;
+        std::cerr << simple_linear_regression_error_string(res) << std::endl;
         return res;
     }
 

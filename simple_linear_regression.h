@@ -46,6 +46,9 @@ int simple_linear_regressionf(const float * x, const float * y, const int n, flo
 #define SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE -2
 #define SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC     -3
 
+/* Returns pointer to string representation of error (pointer to static data, must not be freed) */
+const char * simple_linear_regression_error_string(int error);
+
 /* 
  * To include implementation code define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION 
  * before including simple_linear_regression.h.
@@ -168,6 +171,16 @@ int simple_linear_regressionf(const float * x, const float * y, const int n, flo
     }
 
     return 0;
+}
+
+const char * simple_linear_regression_error_string(int error) {
+    if (error == SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE) {
+        return "SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE";
+    }
+    if (error == SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC) {
+        return "SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC";
+    }
+    return "SIMPLE_LINEAR_REGRESSION: Unknown error";
 }
 
 #endif /* SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION */

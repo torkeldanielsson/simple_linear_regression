@@ -83,17 +83,8 @@ int main() {
     }
 
     res = simple_linear_regression(x, y, DATA_POINTS, &slope, &intercept, &r2);
-
-    if (res == SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE) {
-        printf("SIMPLE_LINEAR_REGRESSION_ERROR_INPUT_VALUE\n");
-        return res;
-    }
-    if (res == SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC) {
-        printf("SIMPLE_LINEAR_REGRESSION_ERROR_NUMERIC\n");
-        return res;
-    }
     if (res < 0) {
-        printf("Unknown error\n");
+        printf("%s\n", simple_linear_regression_error_string(res));
         return res;
     }
 
