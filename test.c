@@ -105,15 +105,19 @@ int main() {
     res = simple_linear_regressionf(xf, yf, DATA_POINTS, &slopef, &interceptf, &r2f);
     if (res != 0) {
         printf("\nERROR: simple_linear_regressionf mismatch (%d != 0)\n", res);
+        return -1;
     }
     if (!fd_equals(slope, slopef)) {
         printf("\nERROR: simple_linear_regressionf mismatch (slope: %f != %f)\n", slope, (double)(slopef));
+        return -1;
     }
     if (!fd_equals(intercept, interceptf)) {
         printf("\nERROR: simple_linear_regressionf mismatch (intercept: %f != %f)\n", intercept, (double)(interceptf));
+        return -1;
     }
     if (!fd_equals(r2, r2f)) {
         printf("\nERROR: simple_linear_regressionf mismatch (r2: %f != %f)\n", r2, (double)(r2f));
+        return -1;
     }
 
     return 0;
