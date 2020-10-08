@@ -63,11 +63,17 @@ int main() {
     double slope = 0.0;
     double intercept = 0.0;
     double r2 = 0.0;
+    double mae = 0.0;
+    double mse = 0.0;
+    double rmse = 0.0;
     float xf[DATA_POINTS] = { 0 };
     float yf[DATA_POINTS] = { 0 };
     float slopef = 0.0f;
     float interceptf = 0.0f;
     float r2f = 0.0f;
+    float maef = 0.0f;
+    float msef = 0.0f;
+    float rmsef = 0.0f;
 
     srand((unsigned int)(time(NULL)));
 
@@ -83,7 +89,7 @@ int main() {
         printf("%f, %f\n", x[i], y[i]);
     }
 
-    res = simple_linear_regression(x, y, DATA_POINTS, &slope, &intercept, &r2);
+    res = simple_linear_regression(x, y, DATA_POINTS, &slope, &intercept, &r2, &mae, &mse, &rmse);
     if (res < 0) {
         printf("%s\n", simple_linear_regression_error_string(res));
         return res;
@@ -92,9 +98,12 @@ int main() {
     printf("\nslope: %f\n", slope);
     printf("intercept: %f\n", intercept);
     printf("r2: %f\n", r2);
+    printf("mae: %f\n", mae);
+    printf("mse: %f\n", mse);
+    printf("rmse: %f\n", rmse);
 
     /* Check that the float version gives the same result */
-    res = simple_linear_regressionf(xf, yf, DATA_POINTS, &slopef, &interceptf, &r2f);
+    res = simple_linear_regressionf(xf, yf, DATA_POINTS, &slopef, &interceptf, &r2f, &maef, &msef, &rmsef);
     if (res != 0) {
         printf("\nERROR: simple_linear_regressionf mismatch (%d != 0)\n", res);
         return -1;
@@ -109,6 +118,18 @@ int main() {
     }
     if (!fd_equals(r2, r2f)) {
         printf("\nERROR: simple_linear_regressionf mismatch (r2: %f != %f)\n", r2, (double)(r2f));
+        return -1;
+    }
+    if (!fd_equals(mae, maef)) {
+        printf("\nERROR: simple_linear_regressionf mismatch (mae: %f != %f)\n", mae, (double)(maef));
+        return -1;
+    }
+    if (!fd_equals(mse, msef)) {
+        printf("\nERROR: simple_linear_regressionf mismatch (mse: %f != %f)\n", mse, (double)(msef));
+        return -1;
+    }
+    if (!fd_equals(rmse, rmsef)) {
+        printf("\nERROR: simple_linear_regressionf mismatch (rmse: %f != %f)\n", rmse, (double)(rmsef));
         return -1;
     }
 

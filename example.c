@@ -43,9 +43,12 @@ int main() {
     double slope = 0.0;
     double intercept = 0.0;
     double r2 = 0.0;
+    double mae = 0.0;
+    double mse = 0.0;
+    double rmse = 0.0;
     int res = 0;
 
-    res = simple_linear_regression(x, y, sizeof(x) / sizeof(x[0]), &slope, &intercept, &r2);
+    res = simple_linear_regression(x, y, sizeof(x) / sizeof(x[0]), &slope, &intercept, &r2, &mae, &mse, &rmse);
     if (res < 0) {
         printf("Error: %s\n", simple_linear_regression_error_string(res));
         return res;
@@ -54,6 +57,9 @@ int main() {
     printf("slope: %f\n", slope);
     printf("intercept: %f\n", intercept);
     printf("r2: %f\n", r2);
+    printf("mean average error: %f\n", r2);
+    printf("mean square error: %f\n", r2);
+    printf("root mean square error: %f\n", r2);
 
     return 0;
 }

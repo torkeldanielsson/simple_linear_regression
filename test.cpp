@@ -83,8 +83,11 @@ int main() {
     double slope = 0.0;
     double intercept = 0.0;
     double r2 = 0.0;
+    double mae = 0.0;
+    double mse = 0.0;
+    double rmse = 0.0;
 
-    int res = simple_linear_regression(x.data(), y.data(), DataPoints, &slope, &intercept, &r2);
+    int res = simple_linear_regression(x.data(), y.data(), DataPoints, &slope, &intercept, &r2, &mae, &mse, &rmse);
     if (res < 0) {
         std::cerr << simple_linear_regression_error_string(res) << std::endl;
         return res;
@@ -93,13 +96,19 @@ int main() {
     std::cout << std::endl << "slope: " << slope << std::endl;
     std::cout << "intercept: " << intercept << std::endl;
     std::cout << "r2: " << r2 << std::endl;
+    std::cout << "mean average error: " << mae << std::endl;
+    std::cout << "mean square error: " << mse << std::endl;
+    std::cout << "root mean square error: " << rmse << std::endl;
 
     float slopef = 0.0f;
     float interceptf = 0.0f;
     float r2f = 0.0f;
+    float maef = 0.0f;
+    float msef = 0.0f;
+    float rmsef = 0.0f;
 
     /* Check that the float version gives the same result */
-    res = simple_linear_regressionf(xf.data(), yf.data(), DataPoints, &slopef, &interceptf, &r2f);
+    res = simple_linear_regressionf(xf.data(), yf.data(), DataPoints, &slopef, &interceptf, &r2f, &maef, &msef, &rmsef);
     if (res != 0) {
         std::cerr << "ERROR: simple_linear_regressionf mismatch (" << res << " != 0)" << std::endl;
         return -1;
@@ -114,6 +123,18 @@ int main() {
     }
     if (!fd_equals(r2, r2f)) {
         std::cerr << "ERROR: simple_linear_regressionf mismatch (r2: " << r2 << " != " << r2f << ")" << std::endl;
+        return -1;
+    }
+    if (!fd_equals(mae, maef)) {
+        std::cerr << "ERROR: simple_linear_regressionf mismatch (mae: " << mae << " != " << maef << ")" << std::endl;
+        return -1;
+    }
+    if (!fd_equals(mse, msef)) {
+        std::cerr << "ERROR: simple_linear_regressionf mismatch (mse: " << mse << " != " << msef << ")" << std::endl;
+        return -1;
+    }
+    if (!fd_equals(rmse, rmsef)) {
+        std::cerr << "ERROR: simple_linear_regressionf mismatch (rmse: " << rmse << " != " << rmsef << ")" << std::endl;
         return -1;
     }
 
