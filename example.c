@@ -26,8 +26,9 @@
  * C example for simple_linear_regression.h
  *
  * Compile and run using e.g.
- * clang -Wall -Weverything -Wpedantic -Werror example.c && ./a.out
- * gcc -Wall -Wpedantic -Werror example.c && ./a.out
+ * clang -Wall -Weverything -Wpedantic -Werror -lm example.c && ./a.out
+ * gcc -Wall -Wpedantic -Werror example.c -lm && ./a.out
+ * cl.exe example.c && example.exe
  */
 
 #define SIMPLE_LINEAR_REGRESSION_IMPLEMENTATION
@@ -57,9 +58,9 @@ int main() {
     printf("slope: %f\n", slope);
     printf("intercept: %f\n", intercept);
     printf("r2: %f\n", r2);
-    printf("mean average error: %f\n", r2);
-    printf("mean square error: %f\n", r2);
-    printf("root mean square error: %f\n", r2);
+    printf("mean average error: %f\n", mae);
+    printf("mean square error: %f\n", mse);
+    printf("root mean square error: %f\n", rmse);
 
     return 0;
 }

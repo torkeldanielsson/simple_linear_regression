@@ -26,8 +26,8 @@
  * C test program for simple_linear_regression.h
  *
  * Compile and run using e.g.
- * clang -Wall -Weverything -Wpedantic -Werror test.c && ./a.out
- * gcc -Wall -Wpedantic -Werror test.c && ./a.out
+ * clang -Wall -Weverything -Wpedantic -Werror test.c -lm && ./a.out
+ * gcc -Wall -Wpedantic -Werror test.c -lm && ./a.out
  * cl.exe test.c && test.exe
  */
 
